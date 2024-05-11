@@ -1,7 +1,7 @@
 package com.enums;
 
 public enum EProductBrand {
-    LA_FORCE,
+    VINTAGE,
     OLUG,
     CINCINATI,
     NEYUH_LEATHER,
