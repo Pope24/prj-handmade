@@ -48,8 +48,8 @@
     </div>
     <div class="humberger__menu__contact">
         <ul>
-            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-            <li>Free Shipping for all Order of $99</li>
+            <li><i class="fa fa-envelope"></i> chinhde170423@fpt.edu.vn</li>
+            <li>Serving you is our honor, Welcome!</li>
         </ul>
     </div>
 </div>
@@ -63,8 +63,8 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                            <li>Free Shipping for all Order of $99</li>
+                            <li><i class="fa fa-envelope"></i> chinhde170423@fpt.edu.vn</li>
+                            <li>Serving you is our honor, Welcome!</li>
                         </ul>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                         <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                     </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
+                    <div class="header__cart__price">total: <span>$150.00</span></div>
                 </div>
             </div>
         </div>

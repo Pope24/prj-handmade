@@ -1,5 +1,6 @@
 1. Introduction
-   1.1 Purpose
+
+1.1 Purpose
 
 The purpose of this document is to outline the functional and non-functional requirements of a software
 system system management suppliers sell organic and environmental protection products. This system
