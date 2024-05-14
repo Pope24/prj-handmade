@@ -25,7 +25,6 @@ public class FrontControllerServlet extends HttpServlet {
         controller.handleRequest(request, response);
     }
     private Controller getControllerForURI(String uri) {
-        System.out.println(uri);
         switch (uri) {
             case "/":
                 return new HomeController();

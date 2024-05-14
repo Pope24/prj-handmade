@@ -21,11 +21,11 @@
       <div class="col-lg-9">
         <div class="hero__search">
           <div class="hero__search__form">
-            <form action="#">
+            <form action="/category" method="get">
               <a href="/category" class="hero__search__categories">
                 All Categories
               </a>
-              <input type="text" placeholder="What do yo u need?">
+              <input type="text" name="search" placeholder="Search product by name?">
               <button type="submit" class="site-btn">SEARCH</button>
             </form>
           </div>

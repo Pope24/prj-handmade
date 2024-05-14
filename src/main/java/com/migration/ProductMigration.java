@@ -3,6 +3,7 @@ package com.migration;
 import com.DBConfig.DBConnection;
 import com.dto.ProductDto;
 import com.extensions.DateTimeExtension;
+import com.querySQL.ProductQuery;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -39,25 +40,20 @@ public class ProductMigration {
             throw new RuntimeException(e);
         }
     }
-    public static List<ProductDto> getListProductBy2Param(String query, int param1, int param2) {
-        List<ProductDto> productDTOList = new ArrayList<>();
-        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(query)) {
-            statement.setInt(1, param1);
-            statement.setInt(2, param2);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                productDTOList.add(ProductMigration.convertProductDto(resultSet));
-            }
-            return productDTOList;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public static List<String> convertListImageProduct(ResultSet resultSet) throws SQLException {
         List<String> images = new ArrayList<>();
         while (resultSet.next()) {
             images.add(resultSet.getString("link_image"));
         }
         return images;
+    }
+    public static List<String> getImageProductByIdProduct(int id) {
+        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(ProductQuery.GET_IMAGE_PRODUCT_BY_ID)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            return ProductMigration.convertListImageProduct(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

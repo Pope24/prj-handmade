@@ -25,18 +25,11 @@
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="shop-grid.jsp">Shop</a></li>
-            <li><a href="#">Pages</a>
-                <ul class="header__menu__dropdown">
-                    <li><a href="shop-details.jsp">Shop Details</a></li>
-                    <li><a href="shopping-cart.jsp">Shoping Cart</a></li>
-                    <li><a href="checkout.jsp">Check Out</a></li>
-                    <li><a href="blog-details.jsp">Blog Details</a></li>
-                </ul>
-            </li>
-            <li><a href="blog.jsp">Blog</a></li>
-            <li><a href="contact.jsp">Contact</a></li>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/category">Shop</a></li>
+            <li><a href="/cart">Shoping Cart</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
