@@ -72,6 +72,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-5">
                 <form action="/category" method="get">
+                    <input type="hidden" name="action" value="filter">
                     <div class="sidebar">
                         <div class="sidebar__item">
                             <h4>Product brand</h4>
@@ -170,21 +171,41 @@
                     </c:forEach>
                 </div>
                 <div class="product__pagination d-flex justify-content-start align-items-center">
-                    <c:if test="${informationProduct.get('currentPage') > 1 }">
-                        <a class="d-flex justify-content-center align-items-center"
-                           href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') - 1}">
-                            <i class="fa fa-long-arrow-left"></i>
-                        </a>
+                    <c:if test="${informationProduct.get('queryURL') == null}">
+                        <c:if test="${informationProduct.get('currentPage') > 1 }">
+                            <a class="d-flex justify-content-center align-items-center"
+                               href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') - 1}">
+                                <i class="fa fa-long-arrow-left"></i>
+                            </a>
+                        </c:if>
+                        <c:forEach begin="1" end="${informationProduct.get('totalPage')}" var="i">
+                            <a style="${i == informationProduct.get('currentPage') ? 'background-color: #7fad39' : ''}"
+                               href="?search=${informationProduct.get('valueSearch')}&page=${i}">${i}</a>
+                        </c:forEach>
+                        <c:if test="${informationProduct.get('currentPage') < informationProduct.get('totalPage') }">
+                            <a class="d-flex justify-content-center align-items-center"
+                               href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') + 1}">
+                                <i class="fa fa-long-arrow-right"></i>
+                            </a>
+                        </c:if>
                     </c:if>
-                    <c:forEach begin="1" end="${informationProduct.get('totalPage')}" var="i">
-                        <a style="${i == informationProduct.get('currentPage') ? 'background-color: #7fad39' : ''}"
-                           href="?search=${informationProduct.get('valueSearch')}&page=${i}">${i}</a>
-                    </c:forEach>
-                    <c:if test="${informationProduct.get('currentPage') < informationProduct.get('totalPage') }">
-                        <a class="d-flex justify-content-center align-items-center"
-                           href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') + 1}">
-                            <i class="fa fa-long-arrow-right"></i>
-                        </a>
+                    <c:if test="${informationProduct.get('queryURL') != null}">
+                        <c:if test="${informationProduct.get('currentPage') > 1 }">
+                            <a class="d-flex justify-content-center align-items-center"
+                               href="?${informationProduct.get('queryURL')}&page=${informationProduct.get('currentPage') - 1}">
+                                <i class="fa fa-long-arrow-left"></i>
+                            </a>
+                        </c:if>
+                        <c:forEach begin="1" end="${informationProduct.get('totalPage')}" var="i">
+                            <a style="${i == informationProduct.get('currentPage') ? 'background-color: #7fad39' : ''}"
+                               href="?${informationProduct.get('queryURL')}&page=${i}">${i}</a>
+                        </c:forEach>
+                        <c:if test="${informationProduct.get('currentPage') < informationProduct.get('totalPage') }">
+                            <a class="d-flex justify-content-center align-items-center"
+                               href="?${informationProduct.get('queryURL')}&page=${informationProduct.get('currentPage') + 1}">
+                                <i class="fa fa-long-arrow-right"></i>
+                            </a>
+                        </c:if>
                     </c:if>
                 </div>
             </div>

@@ -69,4 +69,12 @@ public class ProductBrandMigration {
     public static String getNameProductBrandById(int pBrand) {
         return getNameProductBrandByEnum(getEnumBrandById(pBrand));
     }
+    public static String[] getArrayIntAllBrand() {
+        EProductBrand[] brands = EProductBrand.values();
+        String[] res = new String[brands.length];
+        for (int i = 0; i < brands.length; i++) {
+            res[i] = String.valueOf(brands[i].ordinal());
+        }
+        return res;
+    }
 }

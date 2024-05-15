@@ -70,4 +70,12 @@ public class ProductTypeMigration {
     public static String getNameProductTypeById(int id) {
         return getNameProductTypeByEnum(getEnumTypeById(id));
     }
+    public static String[] getArrayIntAllType() {
+        EProductType[] types = EProductType.values();
+        String[] res = new String[types.length];
+        for (int i = 0; i < types.length; i++) {
+            res[i] = String.valueOf(types[i].ordinal());
+        }
+        return res;
+    }
 }

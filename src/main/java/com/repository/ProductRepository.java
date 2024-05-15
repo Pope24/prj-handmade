@@ -34,7 +34,7 @@ public class ProductRepository implements IProductRepository {
     @Override
     public List<ProductDto> getTopRelatedProduct(int type, int brand) {
         List<ProductDto> productDTOList = new ArrayList<>();
-        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(ProductQuery.GET_TOP_LATEST_PRODUCT)) {
+        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(ProductQuery.GET_TOP_RELATED_PRODUCT)) {
             statement.setInt(1, type);
             statement.setInt(2, brand);
             ResultSet resultSet = statement.executeQuery();
@@ -48,13 +48,10 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public List<ProductDto> getProductFilter(String brands, String types, BigDecimal minPrice, BigDecimal maxPrice, int page) {
+    public List<ProductDto> getProductFilter(String[] brands, String[] types, BigDecimal minPrice, BigDecimal maxPrice, int page) {
         List<ProductDto> productDTOList = new ArrayList<>();
-        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(ProductQuery.GET_PRODUCT_FILTER)) {
-            statement.setString(1, brands);
-            statement.setString(2, types);
-            statement.setBigDecimal(3, minPrice);
-            statement.setBigDecimal(4, maxPrice);
+        String query = ProductQuery.getQueryProductFilter(brands, types, minPrice, maxPrice, page);
+        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 productDTOList.add(ProductMigration.convertProductDto(resultSet));
@@ -80,6 +77,20 @@ public class ProductRepository implements IProductRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public int countAmountProductFilter(String[] brands, String[] types, BigDecimal minPrice, BigDecimal maxPrice) {
+        String query = ProductQuery.getQueryCountProductFilter(brands, types, minPrice, maxPrice);
+        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
     @Override

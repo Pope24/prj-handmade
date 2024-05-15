@@ -8,4 +8,5 @@ public class PagingExtension {
             return totalPage/6 + 1;
         }
     }
+
 }
