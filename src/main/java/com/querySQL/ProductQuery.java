@@ -27,14 +27,14 @@ public class ProductQuery {
     public static String GET_TOP_RELATED_PRODUCT = "select top 4 p.id, p.name, p.price, p.amount, p.description, p.p_type, p.p_brand, p.create_on, u.full_name, ii.link_image\n" +
             "from (select id_product, MIN(id) as id_image from image_product group by id_product) i\n" +
             "join image_product ii on i.id_image = ii.id full join products p on ii.id_product = p.id join users u on u.id_user = p.id_user where p.isActived = 1 and (p.p_type = ? or p.p_brand = ?) order by p.create_on desc";
-    public static String GET_PRODUCT_FILTER = "with x as(select ROW_NUMBER() over (order by p.create_on desc) as r, p.id, p.name, p.price, p.amount, p.description, p.p_type, p.p_brand, p.create_on, u.full_name, ii.link_image\n" +
-            "from (select id_product, MIN(id) as id_image from image_product group by id_product) i\n" +
-            "join image_product ii on i.id_image = ii.id join products p on ii.id_product = p.id join users u on u.id_user = p.id_user \n" +
-            "where p.isActived = 1 and p.p_brand in ? and p.p_type in ? and p.price between ? and ?) select * from x where r between (? - 1) * 6 + 1 and ? * 6";
     public static String GET_PRODUCT_SEARCH = "with x as(select ROW_NUMBER() over (order by p.create_on desc) as r, p.id, p.name, p.price, p.amount, p.description, p.p_type, p.p_brand, p.create_on, u.full_name, ii.link_image\n" +
             "from (select id_product, MIN(id) as id_image from image_product group by id_product) i\n" +
             "join image_product ii on i.id_image = ii.id join products p on ii.id_product = p.id join users u on u.id_user = p.id_user \n" +
             "where p.isActived = 1 and p.name like ?) select * from x where r between (? - 1) * 6 + 1 and ? * 6";
+    public static String GET_ALL_PRODUCT = "with x as(select ROW_NUMBER() over (order by p.create_on desc) as r, p.id, p.name, p.price, p.amount, p.description, p.p_type, p.p_brand, p.create_on, u.full_name, ii.link_image\n" +
+            "from (select id_product, MIN(id) as id_image from image_product group by id_product) i\n" +
+            "join image_product ii on i.id_image = ii.id join products p on ii.id_product = p.id join users u on u.id_user = p.id_user \n" +
+            "where p.isActived = 1 and p.name like ?) select * from x";
     public static String COUNT_PRODUCT_SEARCH = "select count(p.id) total from products p where p.isActived = 1 and p.name like ?";
 
     public static String getQueryProductFilter(String[] brands, String[] types, BigDecimal min, BigDecimal max, int page) {

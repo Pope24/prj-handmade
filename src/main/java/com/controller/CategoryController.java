@@ -4,17 +4,24 @@ import com.controller.frontController.Controller;
 import com.service.CategoryService;
 import com.service.impl.ICategoryService;
 import com.validation.PagingValidation;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-
+@MultipartConfig(location = "C:\\Upload")
 public class CategoryController implements Controller {
     private ICategoryService categoryService = new CategoryService();
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getMethod().equalsIgnoreCase("GET")) {
             doGet(request, response);
         } else if (request.getMethod().equalsIgnoreCase("POST")) {
@@ -36,9 +43,27 @@ public class CategoryController implements Controller {
     }
 
 
-    void doPost(HttpServletRequest request, HttpServletResponse response) {
-
+    void doPost(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String action = request.getParameter("action");
+        if (action == null) action = "";
+        switch (action) {
+            default:
+                getProductSearchImage(request, response);
+        }
     }
+
+    private void getProductSearchImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
+        FileItem fileItem = sf.parseRequest(request).get(0);
+        File uploadDir = new File("C:/upload");
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+        fileItem.write(new File("C:/upload/" + fileItem.getName()));
+        request.setAttribute("informationProduct", categoryService.getProductSearchByImage("C:\\upload\\" + fileItem.getName()));
+        request.getRequestDispatcher("shop-grid.jsp").forward(request, response);
+    }
+
     private void getProductSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String search = request.getParameter("search");
         if (search == null) search = "";

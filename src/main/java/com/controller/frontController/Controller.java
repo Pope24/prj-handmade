@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface Controller {
     void handleRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException;
+            throws Exception;
 }

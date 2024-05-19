@@ -1,6 +1,6 @@
 package com.migration;
 
-import com.DBConfig.DBConnection;
+import com.configuration.database.DBConnection;
 import com.dto.ProductDto;
 import com.extensions.DateTimeExtension;
 import com.querySQL.ProductQuery;

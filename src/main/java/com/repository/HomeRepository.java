@@ -1,21 +1,10 @@
 package com.repository;
 
-import com.DBConfig.DBConnection;
 import com.dto.ProductDto;
-import com.extensions.DateTimeExtension;
-import com.migration.ProductBrandMigration;
 import com.migration.ProductMigration;
-import com.migration.ProductTypeMigration;
 import com.querySQL.ProductQuery;
 import com.repository.impl.IHomeRepository;
 
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeRepository implements IHomeRepository {

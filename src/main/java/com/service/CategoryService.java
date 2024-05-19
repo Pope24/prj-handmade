@@ -1,15 +1,20 @@
 package com.service;
 
+import com.configuration.opencv.AlgCompareImage;
+import com.dto.ProductDto;
 import com.extensions.NumberExtension;
 import com.extensions.PagingExtension;
-import com.migration.ProductTypeMigration;
 import com.repository.ProductRepository;
 import com.repository.impl.IProductRepository;
 import com.service.impl.ICategoryService;
 import com.validation.PagingValidation;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CategoryService implements ICategoryService {
@@ -42,5 +47,25 @@ public class CategoryService implements ICategoryService {
         filterProducts.put("maxPrice", maxPriceDec);
         filterProducts.put("queryURL", queryURL);
         return filterProducts;
+    }
+
+    @Override
+    public Map<String, ?> getProductSearchByImage(String image) throws IOException {
+        Map<String, Object> imageSearchProducts = new HashMap<>();
+        List<ProductDto> resultProductsSearch = new ArrayList<>();
+        List<ProductDto> products= productRepository.loadAllProducts();
+        for (ProductDto product: products) {
+            for (String img: product.getImages()) {
+                if (AlgCompareImage.compareTwoImage(image, img)) {
+                    resultProductsSearch.add(product);
+                    break;
+                }
+            }
+        }
+        imageSearchProducts.put("products", resultProductsSearch);
+        imageSearchProducts.put("totalPage", 3);
+        imageSearchProducts.put("currentPage", 1);
+        imageSearchProducts.put("valueSearch", "");
+        return imageSearchProducts;
     }
 }

@@ -709,6 +709,9 @@ ol {
 	border-radius: 50%;
 	float: left;
 	margin-right: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .hero__search__phone__text {

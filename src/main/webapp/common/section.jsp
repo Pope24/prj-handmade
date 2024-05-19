@@ -29,9 +29,15 @@
               <button type="submit" class="site-btn">SEARCH</button>
             </form>
           </div>
+          <div class="hero__search__form">
+            <form action="/category" method="post" enctype="multipart/form-data">
+              <input type="file" name="file" accept="image/*">
+              <button type="submit" class="site-btn">SEARCH</button>
+            </form>
+          </div>
           <div class="hero__search__phone">
             <div class="hero__search__phone__icon">
-              <i class="fa fa-phone"></i>
+              <i class="fa fa-camera"></i>
             </div>
             <div class="hero__search__phone__text">
               <h5>+84 914.412.406</h5>

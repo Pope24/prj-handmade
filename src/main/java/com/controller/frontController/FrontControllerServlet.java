@@ -12,14 +12,22 @@ import java.net.URL;
 public class FrontControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String uri = request.getRequestURI();
         Controller controller = getControllerForURI(uri);
         controller.handleRequest(request, response);
@@ -38,6 +46,8 @@ public class FrontControllerServlet extends HttpServlet {
                 return new CartController();
             case "/category":
                 return new CategoryController();
+            case "/deep-search":
+//                return new DeepSearchController();
             default:
                 return new DefaultController();
         }

@@ -12,4 +12,5 @@ public interface IProductRepository {
     List<ProductDto> getProductSearch(String search, int page);
     int countAmountProductFilter(String[] brands, String[] types, BigDecimal minPrice, BigDecimal maxPrice);
     int countAmountProductSearch(String search);
+    List<ProductDto> loadAllProducts();
 }

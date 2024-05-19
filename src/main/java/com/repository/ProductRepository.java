@@ -1,6 +1,6 @@
 package com.repository;
 
-import com.DBConfig.DBConnection;
+import com.configuration.database.DBConnection;
 import com.dto.ProductDto;
 import com.migration.ProductMigration;
 import com.querySQL.ProductQuery;
@@ -106,5 +106,20 @@ public class ProductRepository implements IProductRepository {
         }
         return 0;
     }
-
+    @Override
+    public List<ProductDto> loadAllProducts() {
+        List<ProductDto> productDTOList = new ArrayList<>();
+        try(Connection con = DBConnection.getConnection(); PreparedStatement statement = con.prepareStatement(ProductQuery.GET_ALL_PRODUCT)) {
+            statement.setString(1, "%%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ProductDto product = ProductMigration.convertProductDto(resultSet);
+                product.setImages(ProductMigration.getImageProductByIdProduct(product.getId()));
+                productDTOList.add(product);
+            }
+            return productDTOList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
