@@ -1,41 +1,41 @@
-package com.entity;
+package com.dto;
 
-import com.enums.EGender;
+import java.time.LocalDate;
 
-import java.time.LocalDateTime;
-
-public class User {
+public class AccountDTO {
     private int id;
-    public String fullName;
+    private String username;
+    private boolean isActive;
+    private int idRole;
+    private String fullName;
     private String phoneNumber;
     private String email;
     private String identityCard;
-    public String address;
-    public EGender gender;
+    private LocalDate birthDay;
+    private String address;
+    private int gender;
     private String avatar;
 
-    public User() {
-    }
-
-    public User(int id, String fullName, String phoneNumber, String email, String identityCard, String address, EGender gender, String avatar) {
+    public AccountDTO(int id, String username, boolean isActive, int idRole, String fullName, String phoneNumber, String email, String identityCard, LocalDate birthDay, String address, int gender, String avatar) {
         this.id = id;
+        this.username = username;
+        this.isActive = isActive;
+        this.idRole = idRole;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.identityCard = identityCard;
+        this.birthDay = birthDay;
         this.address = address;
         this.gender = gender;
         this.avatar = avatar;
     }
 
-    public User(String fullName, String phoneNumber, String email, String identityCard, String address, EGender gender, String avatar) {
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.identityCard = identityCard;
-        this.address = address;
-        this.gender = gender;
-        this.avatar = avatar;
+    public AccountDTO(int id, String username, boolean isActive, int idRole) {
+        this.id = id;
+        this.username = username;
+        this.isActive = isActive;
+        this.idRole = idRole;
     }
 
     public int getId() {
@@ -44,6 +44,30 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public int getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(int idRole) {
+        this.idRole = idRole;
     }
 
     public String getFullName() {
@@ -78,6 +102,14 @@ public class User {
         this.identityCard = identityCard;
     }
 
+    public LocalDate getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -86,11 +118,11 @@ public class User {
         this.address = address;
     }
 
-    public EGender getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(EGender gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 

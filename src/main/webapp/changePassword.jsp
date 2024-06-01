@@ -14,7 +14,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Change Password</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -40,52 +40,40 @@
 <body>
 <div>
     <jsp:include page="./common/header.jsp"></jsp:include>
-    <section class="login_box_area section_gap" style="padding: 20px 0">
+    <section class="login_box_area section_gap">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login_box_img">
-                        <img class="img-fluid"
-                             src="https://www.craftionary.net/wp-content/uploads/2013/04/handmade-gift-ideas-scaled.jpg"
-                             alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets/img/login.jpg" alt="">
                         <div class="hover">
                             <h4>Bạn là người mới ?</h4>
-                            <p>Để có thể mua bán sản phẩm và có một trải nghiệm tốt, vui lòng tạo tài khoản mới ở phía
-                                dưới
-                                đây.</p>
+                            <p>Để có thể mua bán giày dép và có một trải nghiệm tốt, vui lòng tạo tài khoản mới ở phía dưới đây.</p>
                             <a class="primary-btn" href="/register">Tạo tài khoản</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="login_form_inner">
-                        <h3>Đăng nhập</h3>
-                        <form class="row login_form" action="/login" method="post" id="contactForm">
-                            <c:if test="${param['change-password'] == 'success'}">
-                            <p style="color: green">Đổi mật khẩu thành công. Vui lòng đăng nhập để tiếp tục.
-                            <p>
-                                </c:if>
+                        <h3>Đổi mật khẩu</h3>
+                        <form class="row login_form" action="/login?action=change-password" method="post" id="contactForm">
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" required pattern=".{6,}"
-                                       title="Tên đăng nhập phải 6 kí tự trở lên" name="username"
-                                       placeholder="Tên đăng nhập" onfocus="this.placeholder = ''"
-                                       onblur="this.placeholder = 'Tên đăng nhập'">
+                                <input type="password" class="form-control" required name="newPassword" placeholder="Mật khẩu mới" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mật khẩu mới'">
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="password" class="form-control" required pattern=".{6,}"
-                                       title="Mật khẩu phải 6 kí tự trở lên" name="password" placeholder="Mật khẩu"
-                                       onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mật khẩu'">
+                                <input type="password" class="form-control" required name="confirmPassword" placeholder="Xác nhận mật khẩu" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Xác nhận mật khẩu'">
                             </div>
-                            <c:if test="${errorLogin != null}">
-                                <p class="col-md-12 form-group" style="color: red; text-align: left">${errorLogin}</p>
+                            <c:if test="${errorsChangePassword['errorConfirmPassword'] != null}">
+                                <p class="col-md-12 form-group m-0" style="color: red; text-align: left">${errorsChangePassword['errorConfirmPassword']}</p>
                             </c:if>
-                            <c:if test="${accountNotActive != null}">
-                                <p class="col-md-12 form-group"
-                                   style="color: red; text-align: left">${accountNotActive}</p>
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" required name="code" placeholder="Mã code" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mã code'">
+                            </div>
+                            <c:if test="${errorsChangePassword['errorVerifyCode'] != null}">
+                                <p class="col-md-12 form-group m-0" style="color: red; text-align: left">${errorsChangePassword['errorVerifyCode']}</p>
                             </c:if>
                             <div class="col-md-12 mt-3 form-group">
-                                <button type="submit" value="submit" class="primary-btn">Đăng nhập</button>
-                                <a href="/login?action=verify-email">Quên mật khẩu ?</a>
+                                <button type="submit" value="submit" class="primary-btn">Đổi mật khẩu</button>
                             </div>
                         </form>
                     </div>

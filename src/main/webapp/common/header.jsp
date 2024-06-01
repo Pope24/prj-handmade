@@ -1,6 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-        <a href="#"><img src="${pageContext.request.contextPath}/assets/img/logo.png" alt=""></a>
+        <a href="/"><img src="${pageContext.request.contextPath}/assets/img/logo.png" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
         <ul>
@@ -20,7 +21,7 @@
             </ul>
         </div>
         <div class="header__top__right__auth">
-            <a href="#"><i class="fa fa-user"></i> Login</a>
+            <a href="/login"><i class="fa fa-user"></i> Login</a>
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
@@ -78,8 +79,31 @@
                                 <li><a href="#">English</a></li>
                             </ul>
                         </div>
-                        <div class="header__top__right__auth">
-                            <a href="#"><i class="fa fa-user"></i> Login</a>
+                        <div class="header__top__right__language">
+                            <c:if test="${sessionScope.account == null}">
+                                <a href="/login"><i class="fa fa-user"></i> Login</a>
+                            </c:if>
+                            <c:if test="${sessionScope.account != null}">
+                                    <div>${sessionScope.account.getUsername()}</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul style="width: 170px">
+                                        ${sessionScope.account.getIdRole()}
+                                        <c:if test="${sessionScope.account.getIdRole() <= 1}">
+                                            <li><a href="/">Customer management</a></li>
+                                            <li><a href="/">Financial management</a></li>
+                                            <li class="border-bottom"></li>
+                                        </c:if>
+                                        <c:if test="${sessionScope.account.getIdRole() <= 2}">
+                                            <li><a href="/">Product posting</a></li>
+                                            <li><a href="/">Post category</a></li>
+                                            <li><a href="/">Store revenue</a></li>
+                                            <li class="border-bottom"></li>
+                                        </c:if>
+                                        <li><a href="/">Personal information</a></li>
+                                        <li><a href="/order-manager?action=order-placed">Order placed</a></li>
+                                        <li><a href="/logout">Log out</a></li>
+                                    </ul>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -96,18 +120,11 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
-                        <li><a href="shop-grid.jsp">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="shop-details.jsp">Shop Details</a></li>
-                                <li><a href="shopping-cart.jsp">Shoping Cart</a></li>
-                                <li><a href="checkout.jsp">Check Out</a></li>
-                                <li><a href="blog-details.jsp">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="blog.jsp">Blog</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
+                        <li class="active"><a href="/">Home</a></li>
+                        <li><a href="/category">Shop</a></li>
+                        <li><a href="/cart">Shoping Cart</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>

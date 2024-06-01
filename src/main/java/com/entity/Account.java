@@ -2,7 +2,7 @@ package com.entity;
 
 import com.enums.ERole;
 
-public class Account {
+public class Account extends BaseEntity{
     private int id;
     private String username;
     private String password;
