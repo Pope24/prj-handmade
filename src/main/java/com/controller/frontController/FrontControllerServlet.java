@@ -46,8 +46,6 @@ public class FrontControllerServlet extends HttpServlet {
                 return new CartController();
             case "/category":
                 return new CategoryController();
-            case "/deep-search":
-//                return new DeepSearchController();
             default:
                 return new DefaultController();
         }

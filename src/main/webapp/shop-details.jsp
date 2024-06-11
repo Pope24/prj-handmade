@@ -23,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/toastmaker/dist/toastmaker.min.css">
 </head>
 
 <body>
@@ -97,11 +98,11 @@
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" value="1" id="sst">
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn" >ADD TO CARD</a>
+                        <button class="primary-btn" onclick="addToCart(${product.id})">ADD TO CARD</button>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>${product.amount > 0 ? "In Stock" : "Out of stock"}</span></li>
@@ -253,8 +254,35 @@
     <script src="${pageContext.request.contextPath}/assets/js/mixitup.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/toastmaker/dist/toastmaker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+<script>
+    function addToCart(id) {
+        ToastMaker('Add more product to cart success!', 2000,  {
+            styles: { fontSize: '18px', backgroundColor: 'green' },
+            classList: ['custom-class', 'other-custom-class'],
+        });
+        let quantity = document.getElementById("sst").value;
+        console.log("/cart?action=add-to-cart&id=" + id + "&quantity=" + quantity);
+        $.ajax({
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: "/cart?action=add-to-cart&id=" + id + "&quantity=" + quantity,
+                success: (data) => {
+                    console.log(data)
+                },
+                error: (error) => {
+                    console.log(error);
+                }
 
-
+            }
+        )
+    }
+</script>
 </body>
-
 </html>
