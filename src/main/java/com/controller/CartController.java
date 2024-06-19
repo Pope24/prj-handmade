@@ -38,6 +38,9 @@ public class CartController implements Controller {
             case "add-to-cart":
                 addToCart(request, response);
                 break;
+            case "update-cart":
+                handleCart(request);
+                break;
             case "get-total-money":
                 calculateTotalMoney(request, response);
                 break;
@@ -72,6 +75,7 @@ public class CartController implements Controller {
         }
         session.setAttribute("cart", cart);
     }
+
     public void calculateTotalMoney(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         Map<ProductDto, Integer> cart = (Map<ProductDto, Integer>) session.getAttribute("cart");
@@ -82,4 +86,40 @@ public class CartController implements Controller {
         response.setContentType("text/plain");
         response.getWriter().write(total.toString());
     }
+
+    public void handleCart(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String expression = request.getParameter("expression");
+        ProductDto product = productService.getProductById(Integer.parseInt(request.getParameter("id")));
+        Map<ProductDto, Integer> cart = (Map<ProductDto, Integer>) session.getAttribute("cart");
+        switch (expression) {
+            case "add":
+                addMoreProductToCart(cart, product);
+                break;
+            case "subtract":
+                subtractMoreProductFromCart(cart, product);
+                break;
+            case "delete":
+                deleteProductFromCart(cart, product);
+                break;
+        }
+        session.setAttribute("cart", cart);
+    }
+
+    public void addMoreProductToCart(Map<ProductDto, Integer> cart, ProductDto product) {
+        Integer quantity = cart.get(product);
+        cart.put(product, quantity + 1);
+    }
+
+    public void subtractMoreProductFromCart(Map<ProductDto, Integer> cart, ProductDto product) {
+        Integer quantity = cart.get(product);
+        if (quantity > 1) {
+            cart.put(product, quantity - 1);
+        }
+    }
+
+    public void deleteProductFromCart(Map<ProductDto, Integer> cart, ProductDto product) {
+        cart.remove(product);
+    }
+
 }

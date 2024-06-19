@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zxx">
 
@@ -14,246 +15,276 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/font-awesome.min.css"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/elegant-icons.css"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nice-select.css"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/jquery-ui.min.css"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/owl.carousel.min.css"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/slicknav.min.css"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css"
+          type="text/css">
 </head>
-
+<style>
+    .name-product {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 150px;
+        display: inline-block;
+    }
+    .checkout__input select {
+        width: 100%;
+        height: 46px;
+        border: 1px solid #ebebeb;
+        padding-left: 20px;
+        font-size: 16px;
+        color: #b2b2b2;
+        border-radius: 4px;
+    }
+</style>
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Humberger Begin -->
+<div class="humberger__menu__overlay"></div>
+<jsp:include page="./common/header.jsp"></jsp:include>
+<!-- Header Section End -->
+
+<!-- Hero Section Begin -->
+<jsp:include page="./common/section.jsp"></jsp:include>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Checkout</h2>
+                    <div class="breadcrumb__option">
+                        <a href="home.jsp">Home</a>
+                        <span>Checkout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</section>
+<!-- Breadcrumb Section End -->
 
-    <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
-    <jsp:include page="./common/header.jsp"></jsp:include>
-    <!-- Header Section End -->
-
-    <!-- Hero Section Begin -->
-    <section class="hero hero-normal">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>All departments</span>
-                        </div>
-                        <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <h4>Billing Details</h4>
+            <form action="#">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Fist Name<span>*</span></p>
+                                    <input type="text" value="${user.getFullName()}">
                                 </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
                             </div>
-                            <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Identity Card<span>*</span></p>
+                                    <input type="text" value="${user.getIdentityCard()}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Checkout</h2>
-                        <div class="breadcrumb__option">
-                            <a href="home.jsp">Home</a>
-                            <span>Checkout</span>
+                        <div class="checkout__input">
+                            <p>Default address<span>*</span></p>
+                            <input type="text" value="${user.getAddress()}">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Town/City<span>*</span></p>
+                            <select id="city" name="city" onclick="selectDistrict()"></select>
+                        </div>
+                        <div class="checkout__input">
+                            <p>District<span>*</span></p>
+                            <select id="district" name="district" onclick="selectTown()"></select>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Commune/Ward<span>*</span></p>
+                            <select id="town" name="town"></select>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Address<span>*</span></p>
+                            <input type="text" placeholder="Street Address" class="checkout__input__add" id="address">
+                            <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Phone<span>*</span></p>
+                                    <input type="text" value="${user.getPhoneNumber()}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="text" value="${user.getEmail()}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Order notes<span>*</span></p>
+                            <input type="text"
+                                   placeholder="Notes about your order, e.g. special notes for delivery.">
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- Checkout Section Begin -->
-    <section class="checkout spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
-                    </h6>
-                </div>
-            </div>
-            <div class="checkout__form">
-                <h4>Billing Details</h4>
-                <form action="#">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-6">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Last Name<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Phone<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Email<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4>Your Order</h4>
+                            <div class="checkout__order__products">Products <span>Total</span></div>
+                            <table>
+                                <c:forEach items="${sessionScope.cart}" var="product">
+                                    <tr>
+                                        <td class="name-product">${product.key.name}</td>
+                                        <td class="text-right w-100">
+                                            <span>
+                                                <fmt:setLocale value="vi_VN"/>
+                                                <fmt:formatNumber value="${product.key.price * product.value}" type="currency"
+                                                                  currencySymbol="VND"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                            <div class="checkout__order__subtotal">Subtotal <span id="sub-total">$750.99</span></div>
+                            <div class="checkout__order__total">Total <span id="total">$750.99</span></div>
                             <div class="checkout__input__checkbox">
-                                <label for="acc">
+                                <label for="acc-or">
                                     Create an account?
-                                    <input type="checkbox" id="acc">
+                                    <input type="checkbox" id="acc-or">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <p>Create an account by entering the information below. If you are a returning customer
-                                please login at the top of the page</p>
-                            <div class="checkout__input">
-                                <p>Account Password<span>*</span></p>
-                                <input type="text">
+                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua.</p>
+                            <div class="checkout__input__checkbox">
+                                <label for="payment">
+                                    Check Payment
+                                    <input type="checkbox" id="payment">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                             <div class="checkout__input__checkbox">
-                                <label for="diff-acc">
-                                    Ship to a different address?
-                                    <input type="checkbox" id="diff-acc">
+                                <label for="paypal">
+                                    Paypal
+                                    <input type="checkbox" id="paypal">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                            <div class="checkout__input">
-                                <p>Order notes<span>*</span></p>
-                                <input type="text"
-                                    placeholder="Notes about your order, e.g. special notes for delivery.">
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="checkout__order">
-                                <h4>Your Order</h4>
-                                <div class="checkout__order__products">Products <span>Total</span></div>
-                                <ul>
-                                    <li>Vegetable’s Package <span>$75.99</span></li>
-                                    <li>Fresh Vegetable <span>$151.99</span></li>
-                                    <li>Organic Bananas <span>$53.99</span></li>
-                                </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>$750.99</span></div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="acc-or">
-                                        Create an account?
-                                        <input type="checkbox" id="acc-or">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <div class="checkout__input__checkbox">
-                                    <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="paypal">
-                                        Paypal
-                                        <input type="checkbox" id="paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
-                            </div>
+                            <button type="submit" class="site-btn">PLACE ORDER</button>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-    </section>
-    <!-- Checkout Section End -->
+    </div>
+</section>
+<!-- Checkout Section End -->
 
-    <!-- Footer Section Begin -->
-    <jsp:include page="./common/footer.jsp"></jsp:include>
-    <!-- Footer Section End -->
+<!-- Footer Section Begin -->
+<jsp:include page="./common/footer.jsp"></jsp:include>
+<!-- Footer Section End -->
 
-    <!-- Js Plugins -->
-    <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/jquery.nice-select.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/jquery-ui.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/jquery.slicknav.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/mixitup.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+<!-- Js Plugins -->
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.slicknav.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/mixitup.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        calculateTotalMoneyInCart();
+        selectCity();
+        selectDistrict();
+        selectTown();
+    });
 
- 
+    async function selectCity() {
+        try {
+            const response = await fetch("https://vapi.vnappmob.com/api/province/");
+            const jsonData = await response.json();
+            const data = jsonData.results;
+            let cityElm = document.getElementById("city");
+            cityElm.innerHTML = data.map((city) => {
+                return '<option value='+ city.province_id+'>'+city.province_name+'</option>';
+            }).join('');
+        } catch (error) {
+            console.error('Error fetching the provinces:', error);
+        }
+    }
+
+    async function selectDistrict() {
+        let idCity = document.getElementById("city").value;
+        console.log(idCity);
+        const response = await fetch("https://vapi.vnappmob.com/api/province/district/" + idCity);
+        const jsonData = await response.json();
+        const data = jsonData.results;
+        document.getElementById("district").innerHTML = data.map(distinct => {
+            return '<option value='+distinct.district_id+'>'+distinct.district_name+'</option>'
+        }).join('')
+    }
+
+    async function selectTown() {
+        let idDistrict = document.getElementById("district").value;
+        console.log(idDistrict);
+        const response = await fetch("https://vapi.vnappmob.com/api/province/ward/" + idDistrict);
+        const jsonData = await response.json();
+        const data = jsonData.results;
+        document.getElementById("town").innerHTML = data.map(ward => {
+            return '<option value='+ward.ward_id+'>'+ward.ward_name+'</option>'
+        }).join('')
+    }
+
+    document.getElementById("town").onchange = () => {
+        console.log("change")
+        let townElm = document.getElementById("town")
+        let districtElm = document.getElementById("district")
+        let cityElm = document.getElementById("city")
+        document.getElementById("address").value
+            = townElm.options[townElm.selectedIndex].text + ", " + districtElm.options[districtElm.selectedIndex].text + ", " + cityElm.options[cityElm.selectedIndex].text;
+        console.log(document.getElementById("address").value);
+    }
+    function calculateTotalMoneyInCart() {
+        $.ajax({
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: '/cart?action=get-total-money',
+                success: (data) => {
+                    console.log(data)
+                    document.getElementById("sub-total").innerText =
+                        (parseInt(data)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+                    document.getElementById("total").innerText =
+                        (parseInt(data)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            }
+        )
+    }
+</script>
 
 </body>
 

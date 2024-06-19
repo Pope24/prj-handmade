@@ -98,16 +98,18 @@
                                             <td class="shoping__cart__quantity">
                                                 <div class="quantity">
                                                     <div class="pro-qty">
-                                                        <input type="text" value="${product.value}">
+                                                        <span class="dec qtybtn" id="dec-btn" onclick="updateCart('subtract', ${product.key.id}, ${product.key.price})">-</span>
+                                                        <input type="text" value="${product.value}" id="amount-${product.key.id}">
+                                                        <span class="inc qtybtn" id="inc-btn" onclick="updateCart('add', ${product.key.id}, ${product.key.price})">+</span>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="shoping__cart__total">
+                                            <td class="shoping__cart__total" id="product-${product.key.id}">
                                                 <fmt:setLocale value="vi_VN"/>
                                                 <fmt:formatNumber value="${product.key.price * product.value}" type="currency" currencySymbol="VND"/>
                                             </td>
                                             <td class="shoping__cart__item__close">
-                                                <span class="icon_close"></span>
+                                                <span class="icon_close" onclick="deleteItemInCart('delete', ${product.key.id})"></span>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -135,7 +137,7 @@
                                     <li>Subtotal <span id="sub-total">$454.98</span></li>
                                     <li>Total <span id="total">$454.98</span></li>
                                 </ul>
-                                <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                                <a href="/checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
                             </div>
                         </div>
                     </div>
@@ -184,6 +186,58 @@
         }
         window.onload = function () {
             calculateTotalMoneyInCart();
+            var proQty = $('.pro-qty');
+            proQty.on('click', '.qtybtn', function () {
+                var $button = $(this);
+                var oldValue = $button.parent().find('input').val();
+                if ($button.hasClass('inc')) {
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    if (oldValue > 1) {
+                        var newVal = parseFloat(oldValue) - 1;
+                    } else {
+                        newVal = 1;
+                    }
+                }
+                $button.parent().find('input').val(newVal);
+            });
+        }
+        function updateCart(expression, id, price) {
+            console.log('/cart?action=update-cart&expression=' + expression + "&id=" + id);
+            $.ajax({
+                    type: "GET",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    url: '/cart?action=update-cart&expression=' + expression + "&id=" + id,
+                    success: (data) => {
+                        document.getElementById("product-"+id).innerText =
+                            (parseInt(document.getElementById("amount-"+id).value)*price).toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                        calculateTotalMoneyInCart();
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                }
+            )
+        }
+        function deleteItemInCart(expression, id) {
+            $.ajax({
+                    type: "GET",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    url: '/cart?action=update-cart&expression=' + expression + "&id=" + id,
+                    success: (data) => {
+                        location.reload();
+                    },
+                    error: (error) => {
+                        console.log(error);
+                    }
+                }
+            )
         }
     </script>
 </body>

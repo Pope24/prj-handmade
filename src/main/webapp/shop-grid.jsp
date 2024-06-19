@@ -133,11 +133,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="filter__found">
-                                <h6><span>16</span> Products found</h6>
-                            </div>
-                        </div>
                         <div class="col-lg-4 col-md-3">
                             <div class="filter__option">
                                 <span class="icon_grid-2x2"></span>
@@ -146,68 +141,74 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <c:forEach items="${informationProduct.get('products')}" var="product">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg"
-                                     data-setbg="${product.image}">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="/product?id=${product.id}">${product.name}</a></h6>
-                                    <h5>
-                                        <fmt:setLocale value="vi_VN"/>
-                                        <fmt:formatNumber value="${product.price}" type="currency"
-                                                          currencySymbol="VND"/>
-                                    </h5>
+                <c:if test="${informationProduct.get('products').size() == 0}">
+                    <h4 class="text-center">Không tìm thấy sản phẩm nào.</h4>
+                    <p class="text-center">Quay lại <a href="/category">danh mục</a> ban đầu</p>
+                </c:if>
+                <c:if test="${informationProduct.get('products').size() > 0}">
+                    <div class="row">
+                        <c:forEach items="${informationProduct.get('products')}" var="product">
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg"
+                                         data-setbg="${product.image}">
+                                        <ul class="product__item__pic__hover">
+                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <h6><a href="/product?id=${product.id}">${product.name}</a></h6>
+                                        <h5>
+                                            <fmt:setLocale value="vi_VN"/>
+                                            <fmt:formatNumber value="${product.price}" type="currency"
+                                                              currencySymbol="VND"/>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <div class="product__pagination d-flex justify-content-start align-items-center">
-                    <c:if test="${informationProduct.get('queryURL') == null}">
-                        <c:if test="${informationProduct.get('currentPage') > 1 }">
-                            <a class="d-flex justify-content-center align-items-center"
-                               href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') - 1}">
-                                <i class="fa fa-long-arrow-left"></i>
-                            </a>
-                        </c:if>
-                        <c:forEach begin="1" end="${informationProduct.get('totalPage')}" var="i">
-                            <a style="${i == informationProduct.get('currentPage') ? 'background-color: #7fad39' : ''}"
-                               href="?search=${informationProduct.get('valueSearch')}&page=${i}">${i}</a>
                         </c:forEach>
-                        <c:if test="${informationProduct.get('currentPage') < informationProduct.get('totalPage') }">
-                            <a class="d-flex justify-content-center align-items-center"
-                               href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') + 1}">
-                                <i class="fa fa-long-arrow-right"></i>
-                            </a>
+                    </div>
+                    <div class="product__pagination d-flex justify-content-start align-items-center">
+                        <c:if test="${informationProduct.get('queryURL') == null}">
+                            <c:if test="${informationProduct.get('currentPage') > 1 }">
+                                <a class="d-flex justify-content-center align-items-center"
+                                   href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') - 1}">
+                                    <i class="fa fa-long-arrow-left"></i>
+                                </a>
+                            </c:if>
+                            <c:forEach begin="1" end="${informationProduct.get('totalPage')}" var="i">
+                                <a style="${i == informationProduct.get('currentPage') ? 'background-color: #7fad39' : ''}"
+                                   href="?search=${informationProduct.get('valueSearch')}&page=${i}">${i}</a>
+                            </c:forEach>
+                            <c:if test="${informationProduct.get('currentPage') < informationProduct.get('totalPage') }">
+                                <a class="d-flex justify-content-center align-items-center"
+                                   href="?search=${informationProduct.get('valueSearch')}&page=${informationProduct.get('currentPage') + 1}">
+                                    <i class="fa fa-long-arrow-right"></i>
+                                </a>
+                            </c:if>
                         </c:if>
-                    </c:if>
-                    <c:if test="${informationProduct.get('queryURL') != null}">
-                        <c:if test="${informationProduct.get('currentPage') > 1 }">
-                            <a class="d-flex justify-content-center align-items-center"
-                               href="?${informationProduct.get('queryURL')}&page=${informationProduct.get('currentPage') - 1}">
-                                <i class="fa fa-long-arrow-left"></i>
-                            </a>
+                        <c:if test="${informationProduct.get('queryURL') != null}">
+                            <c:if test="${informationProduct.get('currentPage') > 1 }">
+                                <a class="d-flex justify-content-center align-items-center"
+                                   href="?${informationProduct.get('queryURL')}&page=${informationProduct.get('currentPage') - 1}">
+                                    <i class="fa fa-long-arrow-left"></i>
+                                </a>
+                            </c:if>
+                            <c:forEach begin="1" end="${informationProduct.get('totalPage')}" var="i">
+                                <a style="${i == informationProduct.get('currentPage') ? 'background-color: #7fad39' : ''}"
+                                   href="?${informationProduct.get('queryURL')}&page=${i}">${i}</a>
+                            </c:forEach>
+                            <c:if test="${informationProduct.get('currentPage') < informationProduct.get('totalPage') }">
+                                <a class="d-flex justify-content-center align-items-center"
+                                   href="?${informationProduct.get('queryURL')}&page=${informationProduct.get('currentPage') + 1}">
+                                    <i class="fa fa-long-arrow-right"></i>
+                                </a>
+                            </c:if>
                         </c:if>
-                        <c:forEach begin="1" end="${informationProduct.get('totalPage')}" var="i">
-                            <a style="${i == informationProduct.get('currentPage') ? 'background-color: #7fad39' : ''}"
-                               href="?${informationProduct.get('queryURL')}&page=${i}">${i}</a>
-                        </c:forEach>
-                        <c:if test="${informationProduct.get('currentPage') < informationProduct.get('totalPage') }">
-                            <a class="d-flex justify-content-center align-items-center"
-                               href="?${informationProduct.get('queryURL')}&page=${informationProduct.get('currentPage') + 1}">
-                                <i class="fa fa-long-arrow-right"></i>
-                            </a>
-                        </c:if>
-                    </c:if>
-                </div>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
