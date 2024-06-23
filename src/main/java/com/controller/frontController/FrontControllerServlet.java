@@ -38,6 +38,8 @@ public class FrontControllerServlet extends HttpServlet {
                 return new HomeController();
             case "/login":
                 return new LoginController();
+            case "/logout":
+                return new LogoutController();
             case "/product":
                 return new ProductController();
             case "/checkout":
@@ -46,6 +48,8 @@ public class FrontControllerServlet extends HttpServlet {
                 return new CartController();
             case "/category":
                 return new CategoryController();
+            case "/payment":
+                return new PaymentController();
             default:
                 return new DefaultController();
         }

@@ -3,7 +3,7 @@ package com.configuration.database;
 import java.sql.*;
 public class DBConnection {
     private static String user = "as";
-    private static String password = "12345678";
+    private static String password = "123456";
     private static String url = "jdbc:sqlserver://localhost:1433;databaseName=handmade;user="+user+";password="+password+";encrypt=false";
     public static Connection getConnection() {
         Connection connection;

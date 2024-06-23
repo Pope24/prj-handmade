@@ -87,7 +87,7 @@
     <div class="container">
         <div class="checkout__form">
             <h4>Billing Details</h4>
-            <form action="#">
+            <form action="/payment" method="post">
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <div class="row">
@@ -165,28 +165,12 @@
                             </table>
                             <div class="checkout__order__subtotal">Subtotal <span id="sub-total">$750.99</span></div>
                             <div class="checkout__order__total">Total <span id="total">$750.99</span></div>
+                            <input type="hidden" name="total_price" id="total-price-hidden">
                             <div class="checkout__input__checkbox">
-                                <label for="acc-or">
-                                    Create an account?
-                                    <input type="checkbox" id="acc-or">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua.</p>
-                            <div class="checkout__input__checkbox">
-                                <label for="payment">
-                                    Check Payment
-                                    <input type="checkbox" id="payment">
-                                    <span class="checkmark"></span>
-                                </label>
+                                    <input type="radio" name="payment_method" value="1"> Pay after recieve
                             </div>
                             <div class="checkout__input__checkbox">
-                                <label for="paypal">
-                                    Paypal
-                                    <input type="checkbox" id="paypal">
-                                    <span class="checkmark"></span>
-                                </label>
+                                <input type="radio" name="payment_method" value="2"> Payment online(VNPay)
                             </div>
                             <button type="submit" class="site-btn">PLACE ORDER</button>
                         </div>
@@ -272,11 +256,12 @@
                 },
                 url: '/cart?action=get-total-money',
                 success: (data) => {
-                    console.log(data)
+                    let totalMoney = parseInt(data)
                     document.getElementById("sub-total").innerText =
-                        (parseInt(data)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+                        totalMoney.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
                     document.getElementById("total").innerText =
-                        (parseInt(data)).toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+                        totalMoney.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+                    document.getElementById("total-price-hidden").value = totalMoney
                 },
                 error: (error) => {
                     console.log(error);
